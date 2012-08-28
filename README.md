@@ -1,5 +1,5 @@
-Travis-ci status: [![Build
-Status](https://secure.travis-ci.org/jackl0phty/opschef-cookbook-sptoolkit.png?branch=master)](http://travis-ci.org/jackl0phty/opschef-cookbook-sptoolkit)
+Travis-ci status: [![Build Status](https://secure.travis-ci.org/jackl0phty/opschef-cookbook-sptoolkit.png?branch=master)](http://travis-ci.org/jackl0phty/opschef-cookbook-sptoolkit)
+
 DESCRIPTION:
 ============
 
