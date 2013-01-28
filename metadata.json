@@ -1,9 +1,9 @@
 {
   "name": "sptoolkit",
   "description": "Installs/Configures sptoolkit",
-  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES:\n\n= USAGE:\n\n",
-  "maintainer": "Marshall University",
-  "maintainer_email": "itisystems@marshall.edu",
+  "long_description": "Travis-ci status: [![Build Status](https://secure.travis-ci.org/jackl0phty/opschef-cookbook-sptoolkit.png?branch=master)](http://travis-ci.org/jackl0phty/opschef-cookbook-sptoolkit)\n\nDESCRIPTION:\n============\n\nThis cookbook will install Simple Phish Toolkit (SPT).\nThe project's website is located [here](http://www.sptoolkit.com/).\n\n\nREQUIREMENTS:\n=============\n\nThe primary requirements are Apache, PHP, & MySQL.\n\nATTRIBUTES:\n===========\n\n<pre><code>\n# Set database options\ndefault[:sptoolkit][:db_user] = \"spt\"\n\n# Random password is generated in default.rb\ndefault[:sptoolkit][:db_pass] = \"\"\n\ndefault[:sptoolkit][:db_name] = \"spt\"\ndefault[:sptoolkit][:www_root_dir] = \"/var/www\"\n</code></pre>\n\nUSAGE:\n======\n\nApply the sptoolkit recipe to your node definition.\n\n<pre><code>\n\"run_list\": [\n    \"recipe[sptoolkit]\"\n  ],\n</code></pre>\n\nIf your web root directory is not /var/www then you'll want\nto override that in a role.\n\nBASIC COOKBOOK RUN DOWN:\n========================\n\n+__ Includes the mysql::server & apache2::mod_php5 recipes.\n\n+__ Deploys spt to [:sptoolkit][:www_root_dir].\n\n+__ Installs php53-mysql/php5-mysql.\n\n+__ Sets permissions on [:sptoolkit][:www_root_dir]}/spt as the apache or www-data user.\n\n+__ Creates spt database, spt db user, and generates random password for spt db user.\n\n+__ Writes database credentials to /etc/spt_db_pass.conf\n\n\n",
+  "maintainer": "Gerald L. Hevener Jr., M.S.",
+  "maintainer_email": "hevenerg@marshall.edu",
   "license": "Apache 2.0",
   "platforms": {
   },
@@ -27,5 +27,5 @@
   },
   "recipes": {
   },
-  "version": "0.0.14"
+  "version": "0.0.16"
 }

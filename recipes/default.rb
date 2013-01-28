@@ -19,14 +19,15 @@
 
 # Include required recipes
 include_recipe "mysql::server"
+include_recipe "apache2"
 include_recipe "apache2::mod_php5"
 
 # Download software
-cookbook_file "/tmp/sptoolkit_0.42.zip" do
+cookbook_file "/tmp/sptoolkit_#{node['sptoolkit']['version']}.zip" do
   mode 0755
   owner "root"
   group "root"
-  source "sptoolkit_0.42.zip"
+  source "sptoolkit_#{node['sptoolkit']['version']}.zip"
 end
 
 # Unzip sptoolkit to www_root_dir
@@ -35,8 +36,8 @@ script "install_sptoolkit" do
   user "root"
   cwd "/tmp"
   code <<-EOH
-  unzip /tmp/sptoolkit_0.42.zip -d #{node['sptoolkit']['www_root_dir']}
-  rm -f /tmp/sptoolkit_0.42.zip 
+  unzip /tmp/sptoolkit_#{node['sptoolkit']['version']}.zip -d #{node['sptoolkit']['www_root_dir']}
+  rm -f /tmp/sptoolkit_#{node['sptoolkit']['version']}.zip 
   EOH
   not_if "test -d #{node['sptoolkit']['www_root_dir']}/spt"
 end
@@ -98,9 +99,10 @@ ruby_block "gen_rand_spt_db_pass" do
     f.close
 
     # Create Simple Phish Toolkit MySQL Database
-    system( "/usr/bin/mysql -u root --password='#{node['mysql']['server_root_password']}' --execute='CREATE DATABASE #{node['sptoolkit']['db_name']}'" )
-    system( "/usr/bin/mysql -u root --password='#{node['mysql']['server_root_password']}' --execute='GRANT ALL PRIVILEGES ON *.* TO #{node['sptoolkit']['db_user']}@localhost'" )
-    system( "/usr/bin/mysql -u root --password='#{node['mysql']['server_root_password']}' --execute='SET PASSWORD FOR #{node['sptoolkit']['db_user']}@localhost = PASSWORD('#{node['sptoolkit']['db_pass']}')'" )
+    system( "/usr/bin/mysql -u root --password='#{node['mysql']['server_root_password']}' --execute=\"CREATE DATABASE #{node['sptoolkit']['db_name']}\"" )
+    system( "/usr/bin/mysql -u root --password='#{node['mysql']['server_root_password']}' --execute=\"CREATE USER '#{node['sptoolkit']['db_user']}'@'localhost' IDENTIFIED BY '#{node['sptoolkit']['db_pass']}'\"" )
+    system( "/usr/bin/mysql -u root --password='#{node['mysql']['server_root_password']}' --execute=\"GRANT  ALL PRIVILEGES ON #{node['sptoolkit']['db_name']}.* TO '#{node['sptoolkit']['db_user']}'@'localhost'\"" )
+    #system( "/usr/bin/mysql -u root --password='#{node['mysql']['server_root_password']}' --execute='SET PASSWORD FOR #{node['sptoolkit']['db_user']}@localhost = PASSWORD('#{node['sptoolkit']['db_pass']}')'" )
     system( "/usr/bin/mysql -u root --password='#{node['mysql']['server_root_password']}' --execute='FLUSH PRIVILEGES'" )
 
   end

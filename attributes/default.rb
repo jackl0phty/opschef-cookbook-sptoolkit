@@ -16,18 +16,21 @@
 # limitations under the License.
 
 # Set database options
-default['sptoolkit']['db_user'] = "spt"
-default['sptoolkit']['db_name'] = "spt"
+node.set['sptoolkit']['db_user'] = "spt"
+node.set['sptoolkit']['db_name'] = "spt"
 
 # Random password is generated in default.rb
-default['sptoolkit']['db_pass'] = ""
+node.set['sptoolkit']['db_pass'] = ""
 
 # Set WWW root directory
-default['sptoolkit']['www_root_dir'] = "/var/www"
+node.set['sptoolkit']['www_root_dir'] = "/var/www"
+
+# Set sptoolkit version to install
+node.set['sptoolkit']['version'] = '0.70'
 
 # Apache vhost settings for spt app
-default['sptoolkit']['server_name'] =  node['hostname']
-default['sptoolkit']['server_aliases'] = node['fqdn']
-default['sptoolkit']['docroot'] = "#{default['sptoolkit']['www_root_dir']}/spt"
-default['sptoolkit']['apache_error_log'] = "error.log"
-default['sptoolkit']['application_name'] = "spt"
+node.set['sptoolkit']['server_name'] =  node['hostname']
+node.set['sptoolkit']['server_aliases'] = node['fqdn']
+node.set['sptoolkit']['docroot'] = "#{default['sptoolkit']['www_root_dir']}/spt"
+node.set['sptoolkit']['apache_error_log'] = "error.log"
+node.set['sptoolkit']['application_name'] = "spt"
