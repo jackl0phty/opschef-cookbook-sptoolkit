@@ -26,7 +26,7 @@ Adjust paths according to your environment.
 rm -rf /var/www/spt
 mysql -u root -p --execute="DROP DATABASE spt"
 rm -f /etc/spt_db_pass.conf.
-</pre></code>
+</code></pre>
 
 So why do I have to completely remove my application and database? Glad you asked! Basically
 all previous versions of this cookbook installed a much older version of spt and it's simply
